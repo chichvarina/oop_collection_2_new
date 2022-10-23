@@ -3,54 +3,58 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws Exception{
 
+        //продукты
         Product banan = new Product("Бананы", 100f, 1f);
         Product apple = new Product("Яблоки", 70f, 2f);
         Product raspberry = new Product("Малина", 120f, 0.2f);
-        Product apple2 = new Product("Яблоки", 70f, 2f);
-
-        Set<Product> productSet1 = new HashSet<>();
-        productSet1.add(banan);
-        productSet1.add(apple);
-        productSet1.add(raspberry);
-        productSet1.add(apple2);
-        System.out.println("Коллекция продуктов 1 "+Arrays.toString(productSet1.toArray()));
+        Product apple2 = new Product("Яблоки", 70f, 2f);//дубль apple по equals()
 
         Product bread = new Product("Хлеб", 30f, 0.4f);
         Product butter = new Product("Масло сливочное", 180f, 0.2f);
         Product potato = new Product("Картофель", 100f, 2f);
 
-        Set<Product> productSet2 = new HashSet<>();
-        productSet2.add(bread);
-        productSet2.add(butter);
-        productSet2.add(potato);
-        System.out.println("Коллекция продуктов 2 "+Arrays.toString(productSet2.toArray()));
+        //В ДЗ-1.1 нужно создать класс для хранения продуктов и методы для работы с этим списком
+        //класс для хранения продутов ProductStorage
+        ProductStorage productStorage1 = new ProductStorage();
+        productStorage1.addProduct(banan);
+        productStorage1.addProduct(apple);
+        productStorage1.addProduct(raspberry);
+        //productStorage1.addProduct(apple2);//выбросит исключение, дубль apple по equals()
+        System.out.println("Первое хранилище продуктов: "+productStorage1);
 
-        Set<Recipe> recipeSet = new HashSet<>();
-        addRecipe(recipeSet,  new Recipe("Рецепт1", productSet1));
-        addRecipe(recipeSet, new Recipe("Рецепт2", productSet1 ));
-        //addRecipe(recipeSet, new Recipe("Рецепт1", productSet2 ));//будет исключение
+        //второе хранилище подуктов
+        ProductStorage productStorage2 = new ProductStorage();
+        productStorage2.addProduct(bread);
+        productStorage2.addProduct(butter);
+        productStorage2.addProduct(potato);
+        System.out.println("Второе хранилище продуктов: "+productStorage2);
 
-        System.out.println("Коллекция рецептов "+Arrays.toString(recipeSet.toArray()));
+        //В ДЗ-2.1 нужно создать класс для хранения рецептов и методы для работы с этим классом
+        RecipeStorage recipeStorage = new RecipeStorage();
+        //у нас уже есль коллекции (Set'ы) продуктов в productStorage1, productStorage2
+        //будем использовать их
+        recipeStorage.addRecipe(new Recipe("Рецепт1", productStorage1.getProductSet()));
+        recipeStorage.addRecipe(new Recipe("Рецепт2", productStorage2.getProductSet()));
+        //recipeStorage.addRecipe(new Recipe("Рецепт1",  productStorage2.getProductSet()));//будет исключение
+        System.out.println("Хранилище рецептов "+recipeStorage);
 
         System.out.println();
 
+        //В ДЗ-2.2 нужно удалять числа из текущего множества, а не записывать часть чисел в новое.
         Set<Integer> randomSet = new HashSet<>();
         Random random = new Random();
         while(randomSet.size() < 20){
             randomSet.add(random.nextInt(1000));
         }
         System.out.println("Множество до удаления нечетных значений "+Arrays.toString(randomSet.toArray()));
-        Set<Integer> oddSet = new HashSet<>();//коллекция нечетных чисел
         Iterator<Integer> iterator = randomSet.iterator();
         while(iterator.hasNext()){
-            int i = iterator.next();
+            Integer i = iterator.next();
             if(! (i%2==0)){//нечетное число
-                oddSet.add(i);
+                iterator.remove();//нужно вызывать метод итератора
             }
         }
-        randomSet.removeAll(oddSet);
         System.out.println("Множество после удаления нечетных значений "+Arrays.toString(randomSet.toArray()));
-
 
         System.out.println();
 
