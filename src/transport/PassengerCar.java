@@ -17,13 +17,11 @@ public class PassengerCar extends Car implements Competable {
     }
     private Body body;
 
-    private Set<Mechanic<PassengerCar>> mechanics;
 
     public PassengerCar(String brand,String model,float engineVolume,Body body,
-                        Driver<PassengerCar> driver,Set<Sponsor> sponsors,Set<Mechanic<PassengerCar>> mechanics) {
-        super(brand, model, engineVolume, driver, sponsors);
+                        Driver<PassengerCar> driver,Set<Sponsor> sponsors, Set<Mechanic> mechanics) {
+        super(brand, model, engineVolume, driver, sponsors, mechanics);
         this.body=body;
-        this.mechanics=mechanics;
     }
 
     public void getBody(){
@@ -111,7 +109,4 @@ public class PassengerCar extends Car implements Competable {
         return random>0.5;
     }
 
-    public Set<Mechanic<PassengerCar>> getMechanics() {
-        return mechanics;
-    }
 }

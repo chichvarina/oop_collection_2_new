@@ -25,11 +25,9 @@ public class Bus extends Car implements Competable{
 
     private BusCapacity busCapacity;
 
-    private Set<Mechanic<Bus>> mechanics;
-
     public Bus(String brand, String model, float engineVolume, int seatsNumber,
-               Driver<Bus> driver, Set<Sponsor> sponsors, Set<Mechanic<Bus>> mechanics) {
-        super(brand, model, engineVolume, driver, sponsors);
+               Driver<Bus> driver, Set<Sponsor> sponsors, Set<Mechanic> mechanics) {
+        super(brand, model, engineVolume, driver, sponsors, mechanics);
 
         if(seatsNumber<=10){
             this.busCapacity = BusCapacity.VERY_LITTLE_CAPACITY;
@@ -50,7 +48,6 @@ public class Bus extends Car implements Competable{
             this.busCapacity.setSeatsNumber(seatsNumber);
         }
 
-        this.mechanics=mechanics;
     }
 
     public void getBusCapasity() {
@@ -125,7 +122,4 @@ public class Bus extends Car implements Competable{
         return true;
     }
 
-    public Set<Mechanic<Bus>> getMechanics() {
-        return mechanics;
-    }
 }

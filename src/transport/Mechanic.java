@@ -1,5 +1,7 @@
 package transport;
 
+import java.util.Objects;
+
 public class Mechanic<T extends Car> {
     private final String family;
     private final String name;
@@ -37,5 +39,24 @@ public class Mechanic<T extends Car> {
     @Override
     public String toString() {
         return family + " " + name;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(family,name,company);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this==obj){
+            return true;
+        }else if(obj==null){
+            return false;
+        }else if(this.getClass()!=obj.getClass()){
+            return false;
+        }
+        Mechanic<T> any = (Mechanic<T>) obj;
+        return this.family.equals(any.family) && this.name.equals(any.name) && this.company.equals(any.company);
     }
 }

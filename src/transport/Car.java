@@ -1,5 +1,6 @@
 package transport;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class Car {
@@ -10,8 +11,10 @@ public class Car {
     private final Driver driver;
     private Set<Sponsor> sponsors;
 
+    private Set<Mechanic> mechanics;
+
     public Car(String brand, String model, float engineVolume,
-               Driver driver, Set<Sponsor> sponsors) {
+               Driver driver, Set<Sponsor> sponsors, Set<Mechanic> mechanics) {
         if (brand == null || brand.isEmpty()) {
             this.brand = "default";
         } else {
@@ -28,8 +31,10 @@ public class Car {
 
         this.driver=driver;
         this.sponsors=sponsors;
-
+        this.mechanics=mechanics;
     }
+
+
 
     public String getBrand() {
         return brand;
@@ -59,6 +64,10 @@ public class Car {
         return sponsors;
     }
 
+    public Set<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
     //Метод начать движение
     public void start(){
         System.out.println("Автомобиль: "+brand+" "+model+" начал движение");
@@ -76,5 +85,23 @@ public class Car {
 
     public boolean passDiagnostics(){
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(brand,model);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this==obj){
+            return true;
+        }else if(obj==null){
+            return false;
+        }else if(this.getClass()!=obj.getClass()){
+            return false;
+        }
+        Car any = (Car) obj;
+        return this.brand.equals(any.brand) && this.model.equals(any.model);
     }
 }

@@ -15,12 +15,10 @@ public class Truck extends Car implements Competable{
 
     private CarringCapacity carringCapacity;
 
-    private Set<Mechanic<Truck>> mechanics;
+    public Truck(String brand, String model, float engineVolume, float mass,
+                 Driver<Truck> driver, Set<Sponsor> sponsors, Set<Mechanic> mechanics) {
 
-    public Truck(String brand,String model,float engineVolume,float mass,
-                 Driver<Truck> driver,Set<Sponsor> sponsors,Set<Mechanic<Truck>> mechanics) {
-
-        super(brand, model, engineVolume, driver, sponsors);
+        super(brand, model, engineVolume, driver, sponsors, mechanics);
 
         if(mass<=3.5f){
             this.carringCapacity = CarringCapacity.N1;
@@ -31,7 +29,6 @@ public class Truck extends Car implements Competable{
         }
         carringCapacity.mass=mass;
 
-        this.mechanics=mechanics;
     }
 
     public void getCarringCapacity(){
@@ -84,7 +81,5 @@ public class Truck extends Car implements Competable{
         return random>0.5;
     }
 
-    public Set<Mechanic<Truck>> getMechanics() {
-        return mechanics;
-    }
+
 }
